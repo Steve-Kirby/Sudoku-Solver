@@ -23,6 +23,7 @@ int main()
     solve(input);
 }
 
+//Prints the sudoku board
 void printMatrix(vector<vector<int>> input) {
     for (vector<int> vec : input) {
         cout << " -------------------------------------" << endl;
@@ -58,35 +59,41 @@ void solve(vector<vector<int>> input) {
                 possibilities.empty();
             }
             cout << " ";
-            //keep track of pos
+
+            //keep track of position
             x += 1;
         }
+        //start at left again on next row.
         x = 0;
         y += 1;
     }
     cout << endl << endl;
 
+    //call again with newly input values
     solve(input);
 }
 
 bool possible(vector<vector<int>> input, int y, int x, int num) {
     
-    //check column;
+    //check row;
     for (int i = 0; i < 9; i++) {
         if (input[i][x] == num) {
             return false;
         }
     }
 
+    //check column;
     for (int j = 0; j < 9; j++) {
         if (input[y][j] == num) {
             return false;
         }
     }
 
+    //get position in 3x3 square
     int k = y % 3;
     int l = x % 3;
 
+    //check each position in that 3x3 square
     for (int t = 0; t < 3; t++) {
         for (int s = 0; s < 3; s++) {
             if (input[y - k + t][x - l + s] == num) {
@@ -95,6 +102,7 @@ bool possible(vector<vector<int>> input, int y, int x, int num) {
         }
     }
 
+    //must be an option.
     return true;
 }
 
